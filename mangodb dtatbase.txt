@@ -1,0 +1,368 @@
+
+test> show dbs
+admin              40.00 KiB
+config             48.00 KiB
+customer           72.00 KiB
+ecommerceKle      176.00 KiB
+ecommerceShop     256.00 KiB
+finalyear          72.00 KiB
+local             112.00 KiB
+orders             72.00 KiB
+shopifyEcom       184.00 KiB
+shopifyEcommerce  184.00 KiB
+shopyecom          72.00 KiB
+students          216.00 KiB
+test              144.00 KiB
+test> use Collegedb
+switched to db Collegedb
+Collegedb> db
+Collegedb
+Collegedb> db.createCollection("teacherInfo")
+{ ok: 1 }
+Collegedb> db
+Collegedb
+Collegedb> show collections
+teacherInfo
+Collegedb> db.createCollection('studentinfo')
+{ ok: 1 }
+Collegedb> show collections
+studentinfo
+teacherInfo
+Collegedb> db.createCollection("courseInfo")
+{ ok: 1 }
+Collegedb> show collections
+courseInfo
+studentinfo
+teacherInfo
+Collegedb> db.studentinfo
+Collegedb.studentinfo
+Collegedb> db.studentinfo.insertOne({name:"Rohit",age:20,cgpa:8.5})
+{
+  acknowledged: true,
+  insertedId: ObjectId('699432183066bfe83a4d7942')
+}
+Collegedb> db.studentinfo.insertmany({name:"sunil chetrry",age:20,cgpa:7.9},{name:"virat",age:21,gpa:6.5},{name:)
+"Uncaught:
+SyntaxError: Unexpected token (1:101)
+
+> 1 | db.studentinfo.insertmany({name:"sunil chetrry",age:20,cgpa:7.9},{name:"virat",age:21,gpa:6.5},{name:)
+    |                                                                                                      ^
+  2 |
+
+Collegedb> db.studentinfo.insertmany([{name:"sunil chetrry",age:20,cgpa:7.9},{name:"virat",age:21,gpa:6.5},{name:"dhoni",age:19,gpa:9.4}])
+TypeError: db.studentinfo.insertmany is not a function
+Collegedb> db.studentinfo.insertMany([{name:"sunil chetrry",age:20,cgpa:7.9},{name:"virat",age:21,gpa:6.5},{name:"dhoni",age:19,gpa:9.4}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('699433f13066bfe83a4d7943'),
+    '1': ObjectId('699433f13066bfe83a4d7944'),
+    '2': ObjectId('699433f13066bfe83a4d7945')
+  }
+}
+Collegedb> show collections
+courseInfo
+studentinfo
+teacherInfo
+Collegedb> db.techerInfo
+Collegedb.techerInfo
+Collegedb> db.teacherInfo.insertOne({name:"gautan ghambir",age:45,subject:"headcoach",exp:10})
+{
+  acknowledged: true,
+  insertedId: ObjectId('6994380e3066bfe83a4d7946')
+}
+Collegedb> db,teacherInfo.insertMany({name:"sachin",age:50,subject:"battingcoach",exp:18},{name:"ravi sh",age:52,subject:"assistant coach"},{name:"anil k",age:49,subject:["phejo coach","bowling coac"],exp:20}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:197)
+
+> 1 | db,teacherInfo.insertMany({name:"sachin",age:50,subject:"battingcoach",exp:18},{name:"ravi sh",age:52,subject:"assistant coach"},{name:"anil k",age:49,subject:["phejo coach","bowling coac"],exp:20}])
+    |                                                                                                                                                                                                      ^
+  2 |
+
+Collegedb> db.teacherInfo.insertMany([{name:"sachin",age:50,subject:"battingcoach",exp:18},{name:"ravi sh",age:52,subject:"assistant coach"},{name:"anil k",age:49,subject:["phejo coach","bowling coac"],exp:20}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('699439943066bfe83a4d7947'),
+    '1': ObjectId('699439943066bfe83a4d7948'),
+    '2': ObjectId('699439943066bfe83a4d7949')
+  }
+}
+Collegedb> db.studentinfo.find()
+[
+  {
+    _id: ObjectId('699432183066bfe83a4d7942'),
+    name: 'Rohit',
+    age: 20,
+    cgpa: 8.5
+  },
+  {
+    _id: ObjectId('699433f13066bfe83a4d7943'),
+    name: 'sunil chetrry',
+    age: 20,
+    cgpa: 7.9
+  },
+  {
+    _id: ObjectId('699433f13066bfe83a4d7944'),
+    name: 'virat',
+    age: 21,
+    gpa: 6.5
+  },
+  {
+    _id: ObjectId('699433f13066bfe83a4d7945'),
+    name: 'dhoni',
+    age: 19,
+    gpa: 9.4
+  }
+]
+Collegedb> db.studentInfo.find().limit(2)
+
+Collegedb> db.studentinfo.find().limit(2)
+[
+  {
+    _id: ObjectId('699432183066bfe83a4d7942'),
+    name: 'Rohit',
+    age: 20,
+    cgpa: 8.5
+  },
+  {
+    _id: ObjectId('699433f13066bfe83a4d7943'),
+    name: 'sunil chetrry',
+    age: 20,
+    cgpa: 7.9
+  }
+]
+Collegedb> db.studentinfo.find().sort({age:1})
+[
+  {
+    _id: ObjectId('699433f13066bfe83a4d7945'),
+    name: 'dhoni',
+    age: 19,
+    gpa: 9.4
+  },
+  {
+    _id: ObjectId('699432183066bfe83a4d7942'),
+    name: 'Rohit',
+    age: 20,
+    cgpa: 8.5
+  },
+  {
+    _id: ObjectId('699433f13066bfe83a4d7943'),
+    name: 'sunil chetrry',
+    age: 20,
+    cgpa: 7.9
+  },
+  {
+    _id: ObjectId('699433f13066bfe83a4d7944'),
+    name: 'virat',
+    age: 21,
+    gpa: 6.5
+  }
+]
+Collegedb> db.studentinfo.find().sort({age:-1})
+[
+  {
+    _id: ObjectId('699433f13066bfe83a4d7944'),
+    name: 'virat',
+    age: 21,
+    gpa: 6.5
+  },
+  {
+    _id: ObjectId('699432183066bfe83a4d7942'),
+    name: 'Rohit',
+    age: 20,
+    cgpa: 8.5
+  },
+  {
+    _id: ObjectId('699433f13066bfe83a4d7943'),
+    name: 'sunil chetrry',
+    age: 20,
+    cgpa: 7.9
+  },
+  {
+    _id: ObjectId('699433f13066bfe83a4d7945'),
+    name: 'dhoni',
+    age: 19,
+    gpa: 9.4
+  }
+]
+Collegedb> db.studentinfo.find().sort({age:-1}).limit(1)
+[
+  {
+    _id: ObjectId('699433f13066bfe83a4d7944'),
+    name: 'virat',
+    age: 21,
+    gpa: 6.5
+  }
+]
+Collegedb> db.studentinfo.find({age:20},{name:true,_id:false})
+[ { name: 'Rohit' }, { name: 'sunil chetrry' } ]
+Collegedb> db.studentinfo.find({age:20},{name:true,age:true,_id:false})
+[ { name: 'Rohit', age: 20 }, { name: 'sunil chetrry', age: 20 } ]
+Collegedb> db.teachaerInfo.find()
+
+Collegedb> show collection
+MongoshInvalidInputError: [COMMON-10001] 'collection' is not a valid argument for "show".
+Collegedb> show collections
+courseInfo
+studentinfo
+teacherInfo
+Collegedb> db.teachaerinfo.find()
+
+Collegedb> db.teacherinfo.find()
+
+Collegedb> db.teacherinfo.find()
+
+Collegedb> db.teacherinfo
+Collegedb.teacherinfo
+Collegedb> db.teacherinfo.updateOne({name:"anil k"},{$set:{exp:22}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+Collegedb> db.teacherinfo.find({name:"anil k"})
+
+Collegedb> db.teacherInfo.find()
+[
+  {
+    _id: ObjectId('6994380e3066bfe83a4d7946'),
+    name: 'gautan ghambir',
+    age: 45,
+    subject: 'headcoach',
+    exp: 10
+  },
+  {
+    _id: ObjectId('699439943066bfe83a4d7947'),
+    name: 'sachin',
+    age: 50,
+    subject: 'battingcoach',
+    exp: 18
+  },
+  {
+    _id: ObjectId('699439943066bfe83a4d7948'),
+    name: 'ravi sh',
+    age: 52,
+    subject: 'assistant coach'
+  },
+  {
+    _id: ObjectId('699439943066bfe83a4d7949'),
+    name: 'anil k',
+    age: 49,
+    subject: [ 'phejo coach', 'bowling coac' ],
+    exp: 20
+  }
+]
+Collegedb> db.teacherInfo.updateOne({name:"anil k"},{$set:{exp:22}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Collegedb> db.teacherinfo.updateOne({name:"ravi shastri"},{$set:{exp:22}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+Collegedb> db.teacherInfo.updateOne({name:"ravi shastri"},{$set:{exp:22}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+Collegedb> db.teacherInfo.updateOne({name:"ravi shastri"},{$set:{exp:22}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+Collegedb> db.teacherInfo.find()
+[
+  {
+    _id: ObjectId('6994380e3066bfe83a4d7946'),
+    name: 'gautan ghambir',
+    age: 45,
+    subject: 'headcoach',
+    exp: 10
+  },
+  {
+    _id: ObjectId('699439943066bfe83a4d7947'),
+    name: 'sachin',
+    age: 50,
+    subject: 'battingcoach',
+    exp: 18
+  },
+  {
+    _id: ObjectId('699439943066bfe83a4d7948'),
+    name: 'ravi sh',
+    age: 52,
+    subject: 'assistant coach'
+  },
+  {
+    _id: ObjectId('699439943066bfe83a4d7949'),
+    name: 'anil k',
+    age: 49,
+    subject: [ 'phejo coach', 'bowling coac' ],
+    exp: 22
+  }
+]
+Collegedb> db.teacherInfo.updateOne({name:"ravi shastri"},{$set:{exp:22}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+Collegedb> db.teacherInfo.updateOne({name:"ravi sh"},{$set:{exp:22}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Collegedb> db.teacherInfo.find()
+[
+  {
+    _id: ObjectId('6994380e3066bfe83a4d7946'),
+    name: 'gautan ghambir',
+    age: 45,
+    subject: 'headcoach',
+    exp: 10
+  },
+  {
+    _id: ObjectId('699439943066bfe83a4d7947'),
+    name: 'sachin',
+    age: 50,
+    subject: 'battingcoach',
+    exp: 18
+  },
+  {
+    _id: ObjectId('699439943066bfe83a4d7948'),
+    name: 'ravi sh',
+    age: 52,
+    subject: 'assistant coach',
+    exp: 22
+  },
+  {
+    _id: ObjectId('699439943066bfe83a4d7949'),
+    name: 'anil k',
+    age: 49,
+    subject: [ 'phejo coach', 'bowling coac' ],
+    exp: 22
+  }
+]
+Collegedb>
+
